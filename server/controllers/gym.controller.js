@@ -10,18 +10,16 @@ exports.getGyms = function(req, res) {
   });
 }
 
-/**
- * Save a gym
- * @param req
- * @param res
- * @returns void
- */
+// saves new gym if all reqs are met
 exports.addGym = function(req, res) {
-  if (!req.body.gym.name || !req.body.gym.title || !req.body.gym.content) {
+  console.log(req.body);
+  var gym = req.body;
+
+  if (!gym.name || !gym.discipline || !gym.cost || !gym.when || !gym.location) {
     res.status(403).end();
   }
 
-  const newGym = new Gym(req.body.gym);
+  var newGym = new Gym(gym);
 
   newGym.save((err, saved) => {
     if (err) {

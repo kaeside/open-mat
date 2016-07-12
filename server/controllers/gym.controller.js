@@ -7,7 +7,7 @@ var Gym = require('../models/gym');
  * @returns void
  */
 exports.getGyms = function(req, res) {
-  Gym.find().sort('-dateAdded').exec((err, gyms) => {
+  Gym.find().sort('name').exec((err, gyms) => {
     if (err) {
       res.status(500).send(err);
     }

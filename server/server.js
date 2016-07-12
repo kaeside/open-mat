@@ -21,7 +21,7 @@ mongoose.connect(serverConfig.mongoURL,  (error) => {
   }
   console.log('Mongoose is connected');
   // seeds db with dummy data
-  // dummyData();
+  dummyData.seedData();
 });
 
 // Apply body Parser and server public assets and routes

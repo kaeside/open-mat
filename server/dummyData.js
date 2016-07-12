@@ -1,6 +1,6 @@
-// Enter dummy data here.
-
 var Gym = require('./models/gym');
+
+// seeds db with dummy data at server start. Make sure MongoDB is running.
 
 exports.seedData = function () {
   Gym.count().exec((err, count) => {
@@ -15,7 +15,7 @@ exports.seedData = function () {
 
     Gym.create([gym1, gym2, gym3], (error) => {
       if (!error) {
-        console.log('ready to go....');
+        console.log('Gyms have been seeded...');
       }
     });
   });

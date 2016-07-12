@@ -10,6 +10,7 @@ var app = new Express();
 
 // Imports required modules
 var gyms = require ('./routes/gym.routes');
+var nearby = require ('./routes/nearby.routes');
 var dummyData = require ('./dummyData');
 var serverConfig = require ('./db/config');
 
@@ -36,6 +37,7 @@ app.use(function(req, res, next) {
 });
 app.use(Express.static(path.resolve(__dirname, '../build/')));
 app.use('/api', gyms);
+app.use('/api', nearby);
 
 
 

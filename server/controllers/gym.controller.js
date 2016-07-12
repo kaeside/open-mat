@@ -29,12 +29,7 @@ exports.addGym = function(req, res) {
   });
 }
 
-/**
- * Get a single gym by name
- * @param req
- * @param res
- * @returns void
- */
+// gets a single gym by name 
 exports.getGym = function(req, res) {
   Gym.findOne({ name: req.params.name }).exec((err, gym) => {
     if (err) {

@@ -1,6 +1,6 @@
 var Gym = require('../models/gym');
 
-//Gets gyms sorted by state and city
+// gets all gyms sorted by state and city
 exports.getGyms = function(req, res) {
   Gym.find().sort('location.state location.city').exec((err, gyms) => {
     if (err) {
@@ -44,12 +44,7 @@ exports.getGym = function(req, res) {
   });
 }
 
-/**
- * Delete a gym by name
- * @param req
- * @param res
- * @returns void
- */
+// deletes a single gym by name via param
 exports.deleteGym = function(req, res) {
   Gym.findOne({ name: req.params.name }).exec((err, gym) => {
     if (err) {

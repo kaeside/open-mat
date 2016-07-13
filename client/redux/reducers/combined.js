@@ -1,9 +1,11 @@
 var combineReducers = require('redux').combineReducers;
 
-var local = require('./local_reducer').updates;
+var allGyms = require('./gyms_reducer').gotGyms;
+var nearby = require('./nearby_reducer').nearby;
 
 var reducers = combineReducers({
-local: local
+  allGyms: allGyms,
+  nearby: nearby
 });
 
 exports.reducers = reducers;

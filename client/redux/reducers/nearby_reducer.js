@@ -10,7 +10,7 @@ function nearbyReducer(state = [], action) {
   else if (action.type === "NEARBY_ERROR") {
     console.log(action.err);
   }
-  console.log(newState);
+  // console.log(newState);
   return newState || state
 }
 

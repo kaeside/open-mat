@@ -4,8 +4,8 @@ var Gym = require('../models/gym');
 exports.findNearbyGyms = function(req, res, next) {
     var limit = req.query.limit || 10;
 
-    // get the max distance or set it to 8 kilometers
-    var maxDistance = req.query.distance || 800;
+    // get the max distance or set it to 10 kilometers
+    var maxDistance = req.query.distance || 10;
 
     // we need to convert the distance to radians
     // the raduis of Earth is approximately 6371 kilometers
@@ -16,10 +16,12 @@ exports.findNearbyGyms = function(req, res, next) {
     coords[0] = req.query.longitude;
     coords[1] = req.query.latitude;
 
+    console.log(coords);
+
     // find a location
     Gym.find({
       geo: {
-        $near: coords,
+        $nearSphere: coords,
         $maxDistance: maxDistance
       }
     }).limit(limit).exec((err, gyms) => {

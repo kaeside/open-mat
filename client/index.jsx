@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import SearchBar from './components/search_bar';
+import Map from './components/map';
+
+import './sass/main.scss';
 
 class Main extends Component {
   render() {
@@ -10,6 +13,7 @@ class Main extends Component {
               <section className="search-bar">
                 <SearchBar />
               </section>
+              <Map />
            </div>
   }
 }

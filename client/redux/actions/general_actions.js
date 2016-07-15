@@ -1,3 +1,5 @@
+
+// action to save coords in central state from form submission
 module.exports = {
   saveCoords: (coords) => {
     return {

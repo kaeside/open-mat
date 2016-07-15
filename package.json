@@ -4,8 +4,8 @@
   "description": "",
   "main": "client/index.jsx",
   "scripts": {
-    "build": "npm run clean && npm run mkdir && npm run build:html && npm run build:jsx",
-    "build:prod": "npm run clean && npm run mkdir && npm run build:html && webpack -p", 
+    "build": "npm run clean && npm run mkdir && npm run build:html && npm run build:jsx", 
+    "build:prod": "npm run clean && npm run mkdir && npm run build:html && webpack -p",
     "watch": "npm run watch:html & npm run watch:jsx",
     "test": "mocha --compilers js:babel-register test/**/*.js*",
     "serve": "http-server build",

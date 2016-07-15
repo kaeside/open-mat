@@ -1,5 +1,8 @@
 var fetch = require('isomorphic-fetch');
 
+// making use of your getGyms endpoint...just for fun really. 😄
+// but could be padded out for posting of new gyms.
+
 module.exports = {
   getAllGyms: () => {
     return (dispatch) => {
@@ -25,4 +28,5 @@ module.exports = {
       })
     }
   }
+  // postNewGym: () => {}
 }

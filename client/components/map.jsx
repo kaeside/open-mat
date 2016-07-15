@@ -1,42 +1,54 @@
 import React, { Component } from 'react';
 import {GoogleMapLoader, GoogleMap, Marker, InfoWindow } from "react-google-maps";
 import { connect } from 'react-redux';
-const pointer = require('../images/gym_pointer.png'); // This is how you use images in webpack
+const pointer = require('../images/gym_pointer.svg'); // This is how you use images in webpack
                                                       // you then have to use a loader in then
                                                       // webpack.config...crazy, right!?!?!?!
 
 class Map extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = { // setting local state for the component
       position: null,
-      content: null
+      content: null,
+      mapWidth: null
     }
+  }
+  componentWillMount() {
+    document.addEventListener('resize', () => {this.handleResize.bind(this)}); // funky way to have the map resize
+    setTimeout(() => {this.handleResize.bind(this)}, 1);
+  }
+  handleResize() {
+    this.setState({
+      mapWidth: window.innerWidth
+    })
   }
   showInfo(position, content) {
     console.log(content);
-    this.setState({
+    this.setState({ // using state to show the info windows. Overwiting previous so only one shows at a time
       position: position,
       content: content
     })
   }
   infoClosed() {
-    this.setState({
+    this.setState({ // clearing out when info is closed, it can be reopened.
       position: null,
       content: null
     })
   }
   render() {
     let info = null
-    if (this.state.position) {
+    if (this.state.position) { // only show info window if there's state
       info = <InfoWindow position={this.state.position} content={this.state.content} onCloseclick={this.infoClosed.bind(this)}/>
     }
+    // 3 renders. 1) If gyms are found...
     if (this.props.state.nearby && this.props.state.nearby.length > 0) {
       return (
-        <section className="map-container" style={{width: `350px`, height: `350px`}}>
+        // map stuff comes from https://github.com/tomchentw/react-google-maps
+        <section className="map-container" style={{width: this.state.mapWidth, height: `350px`}}>
           <GoogleMapLoader
             containerElement={
-              <div className="map" style={{width: `350px`, height: `350px`, border: '5px solid gray'}} />
+              <div className="map" style={{width: this.state.mapWidth, height: `350px`, border: '5px solid gray'}} />
             }
             googleMapElement={
               <GoogleMap
@@ -54,7 +66,6 @@ class Map extends Component {
                     <Marker key={i}
                             position={{lat: gym.geo[1], lng: gym.geo[0]}}
                             icon={pointer}
-                            animation={'DROP'}
                             onClick={this.showInfo.bind(this, {lat: gym.geo[1], lng: gym.geo[0]}, `${gym.name} <br> Costs: $${gym.cost}`)}>
                     </Marker>
                   )
@@ -66,9 +77,11 @@ class Map extends Component {
         </section>
       )
     }
+    // Render 2) No gyms found
     else if (this.props.state.nearby && this.props.state.nearby.length === 0) {
-      return <h1>There's nothing in that search radius, maybe try further afield</h1>
+      return <h1 className="no-results">There's nothing in that search radius, maybe try further afield</h1>
     }
+    // 3) No search made
     else {
       return null
     }

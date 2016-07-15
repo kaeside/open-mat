@@ -1,7 +1,29 @@
 .search-bar {
-  background-image: url('../images/gym_pointer.png') no-repeat center center;
-  border-bottom: 2px solid white;
-  padding: 3em 2em;
+  border-bottom: 2px solid gray;
   text-align: center;
   width: 100vw;
+}
+
+#searchForm {
+  margin-bottom: 2em;
+
+  button {
+    background-color: #9df39d;
+    border: 0;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: .7em;
+  }
+}
+
+
+.form-section {
+  font-family: 'Prompt', sans-serif;
+  font-size: 1.2em;
+  letter-spacing: .01em;
+  margin: .5em;
+
+  select {
+    margin: 0 .6em;
+  }
 }

@@ -70,6 +70,10 @@
 	
 	var _map2 = _interopRequireDefault(_map);
 	
+	var _gym_pointer = __webpack_require__(254);
+	
+	var _gym_pointer2 = _interopRequireDefault(_gym_pointer);
+	
 	__webpack_require__(255);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -95,6 +99,21 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'page' },
+	        _react2.default.createElement(
+	          'section',
+	          { className: 'heading' },
+	          _react2.default.createElement(
+	            'h1',
+	            null,
+	            'Open'
+	          ),
+	          _react2.default.createElement('img', { src: _gym_pointer2.default, alt: 'pointer image' }),
+	          _react2.default.createElement(
+	            'h1',
+	            null,
+	            'Mat'
+	          )
+	        ),
 	        _react2.default.createElement(
 	          'section',
 	          { className: 'search-bar' },
@@ -23019,14 +23038,15 @@
 	  function SearchBar(props) {
 	    _classCallCheck(this, SearchBar);
 	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SearchBar).call(this, props));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SearchBar).call(this, props)); // binding all the methods here for convenience
+	
 	
 	    _this.search = _this.search.bind(_this);
 	    _this.geoSuccess = _this.geoSuccess.bind(_this);
 	    _this.geoError = _this.geoError.bind(_this);
 	    _this.changeDiscipline = _this.changeDiscipline.bind(_this);
 	    _this.changeDistance = _this.changeDistance.bind(_this);
-	    _this.state = {
+	    _this.state = { // local state for the search button
 	      noCoords: true,
 	      buttonText: "Waiting for location..."
 	    };
@@ -23036,22 +23056,23 @@
 	  _createClass(SearchBar, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
+	      // getting user location
 	      window.navigator.geolocation.getCurrentPosition(this.geoSuccess, this.geoError);
 	    }
 	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      this.distance = +this.refs.initialDistance.value;
+	      this.distance = +this.refs.initialDistance.value; // '+' converts string to number
 	      this.discipline = this.refs.initialDiscipline.value;
 	    }
 	  }, {
 	    key: 'geoSuccess',
 	    value: function geoSuccess(position) {
-	      this.props.saveCoords({
+	      this.props.saveCoords({ // fire saveCoords action.
 	        longitude: position.coords.longitude,
 	        latitude: position.coords.latitude
 	      });
-	      this.setState({
+	      this.setState({ // set local state for button
 	        noCoords: false,
 	        buttonText: "GO!!!"
 	      });
@@ -23062,6 +23083,8 @@
 	    value: function geoError() {
 	      console.log("Error in finding your coords");
 	    }
+	    // listening for changes on select boxes. form submits in react are shit.
+	
 	  }, {
 	    key: 'changeDiscipline',
 	    value: function changeDiscipline(e) {
@@ -23074,6 +23097,8 @@
 	      this.distance = +e.target.value;
 	      console.log(this.distance);
 	    }
+	    // when search form is submitted
+	
 	  }, {
 	    key: 'search',
 	    value: function search(e) {
@@ -23092,57 +23117,65 @@
 	        'form',
 	        { id: 'searchForm', onSubmit: this.search },
 	        _react2.default.createElement(
-	          'span',
-	          null,
-	          'Find me a gym specializing in '
-	        ),
-	        _react2.default.createElement(
-	          'select',
-	          { onChange: this.changeDiscipline, name: 'discipline', form: 'searchForm', ref: 'initialDiscipline', defaultValue: 'BJJ' },
+	          'div',
+	          { className: 'form-section' },
 	          _react2.default.createElement(
-	            'option',
-	            { value: 'BJJ' },
-	            'BJJ'
+	            'span',
+	            null,
+	            'Find me a gym specializing in'
 	          ),
 	          _react2.default.createElement(
-	            'option',
-	            { value: 'Killing with a Spoon' },
-	            'Killing with a Spoon'
+	            'select',
+	            { onChange: this.changeDiscipline, name: 'discipline', form: 'searchForm', ref: 'initialDiscipline', defaultValue: 'BJJ' },
+	            _react2.default.createElement(
+	              'option',
+	              { value: 'BJJ' },
+	              'BJJ'
+	            ),
+	            _react2.default.createElement(
+	              'option',
+	              { value: 'Killing with a Spoon' },
+	              'Killing with a Spoon'
+	            )
 	          )
 	        ),
 	        _react2.default.createElement(
-	          'span',
-	          null,
-	          ' that\'s within '
-	        ),
-	        _react2.default.createElement(
-	          'select',
-	          { onChange: this.changeDistance, name: 'distance', form: 'searchForm', ref: 'initialDistance', defaultValue: '5' },
+	          'div',
+	          { className: 'form-section' },
 	          _react2.default.createElement(
-	            'option',
-	            { value: '5' },
-	            '5'
+	            'span',
+	            null,
+	            ' that\'s within '
 	          ),
 	          _react2.default.createElement(
-	            'option',
-	            { value: '10' },
-	            '10'
+	            'select',
+	            { onChange: this.changeDistance, name: 'distance', form: 'searchForm', ref: 'initialDistance', defaultValue: '5' },
+	            _react2.default.createElement(
+	              'option',
+	              { value: '5' },
+	              '5'
+	            ),
+	            _react2.default.createElement(
+	              'option',
+	              { value: '10' },
+	              '10'
+	            ),
+	            _react2.default.createElement(
+	              'option',
+	              { value: '20' },
+	              '20'
+	            ),
+	            _react2.default.createElement(
+	              'option',
+	              { value: '200' },
+	              '200'
+	            )
 	          ),
 	          _react2.default.createElement(
-	            'option',
-	            { value: '20' },
-	            '20'
-	          ),
-	          _react2.default.createElement(
-	            'option',
-	            { value: '200' },
-	            '200'
+	            'span',
+	            null,
+	            ' km\'s of me.'
 	          )
-	        ),
-	        _react2.default.createElement(
-	          'span',
-	          null,
-	          ' km\'s of me. '
 	        ),
 	        _react2.default.createElement(
 	          'button',
@@ -23673,6 +23706,7 @@
 
 	'use strict';
 	
+	// action to save coords in central state from form submission
 	module.exports = {
 	  saveCoords: function saveCoords(coords) {
 	    return {
@@ -23723,18 +23757,38 @@
 	
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Map).call(this, props));
 	
-	    _this.state = {
+	    _this.state = { // setting local state for the component
 	      position: null,
-	      content: null
+	      content: null,
+	      mapWidth: null
 	    };
 	    return _this;
 	  }
 	
 	  _createClass(Map, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      var _this2 = this;
+	
+	      document.addEventListener('resize', function () {
+	        _this2.handleResize.bind(_this2);
+	      }); // funky way to have the map resize
+	      setTimeout(function () {
+	        _this2.handleResize.bind(_this2);
+	      }, 1);
+	    }
+	  }, {
+	    key: 'handleResize',
+	    value: function handleResize() {
+	      this.setState({
+	        mapWidth: window.innerWidth
+	      });
+	    }
+	  }, {
 	    key: 'showInfo',
 	    value: function showInfo(position, content) {
 	      console.log(content);
-	      this.setState({
+	      this.setState({ // using state to show the info windows. Overwiting previous so only one shows at a time
 	        position: position,
 	        content: content
 	      });
@@ -23742,7 +23796,7 @@
 	  }, {
 	    key: 'infoClosed',
 	    value: function infoClosed() {
-	      this.setState({
+	      this.setState({ // clearing out when info is closed, it can be reopened.
 	        position: null,
 	        content: null
 	      });
@@ -23750,49 +23804,57 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
+	      var _this3 = this;
 	
 	      var info = null;
 	      if (this.state.position) {
+	        // only show info window if there's state
 	        info = _react2.default.createElement(_reactGoogleMaps.InfoWindow, { position: this.state.position, content: this.state.content, onCloseclick: this.infoClosed.bind(this) });
 	      }
+	      // 3 renders. 1) If gyms are found...
 	      if (this.props.state.nearby && this.props.state.nearby.length > 0) {
-	        return _react2.default.createElement(
-	          'section',
-	          { className: 'map-container', style: { width: '350px', height: '350px' } },
-	          _react2.default.createElement(_reactGoogleMaps.GoogleMapLoader, {
-	            containerElement: _react2.default.createElement('div', { className: 'map', style: { width: '350px', height: '350px', border: '5px solid gray' } }),
-	            googleMapElement: _react2.default.createElement(
-	              _reactGoogleMaps.GoogleMap,
-	              {
-	                defaultZoom: 10,
-	                defaultCenter: { lat: this.props.state.coords.lat, lng: this.props.state.coords.long } },
-	              _react2.default.createElement(_reactGoogleMaps.Marker, { title: "You",
-	                position: {
-	                  lat: this.props.state.coords.lat,
-	                  lng: this.props.state.coords.long
-	                }
-	              }),
-	              this.props.state.nearby.map(function (gym, i) {
-	                return _react2.default.createElement(_reactGoogleMaps.Marker, { key: i,
-	                  position: { lat: gym.geo[1], lng: gym.geo[0] },
-	                  icon: pointer,
-	                  animation: 'DROP',
-	                  onClick: _this2.showInfo.bind(_this2, { lat: gym.geo[1], lng: gym.geo[0] }, gym.name + ' <br> Costs: $' + gym.cost) });
-	              }),
-	              info
-	            )
-	          })
+	        return(
+	          // map stuff comes from https://github.com/tomchentw/react-google-maps
+	          _react2.default.createElement(
+	            'section',
+	            { className: 'map-container', style: { width: this.state.mapWidth, height: '350px' } },
+	            _react2.default.createElement(_reactGoogleMaps.GoogleMapLoader, {
+	              containerElement: _react2.default.createElement('div', { className: 'map', style: { width: this.state.mapWidth, height: '350px', border: '5px solid gray' } }),
+	              googleMapElement: _react2.default.createElement(
+	                _reactGoogleMaps.GoogleMap,
+	                {
+	                  defaultZoom: 10,
+	                  defaultCenter: { lat: this.props.state.coords.lat, lng: this.props.state.coords.long } },
+	                _react2.default.createElement(_reactGoogleMaps.Marker, { title: "You",
+	                  position: {
+	                    lat: this.props.state.coords.lat,
+	                    lng: this.props.state.coords.long
+	                  }
+	                }),
+	                this.props.state.nearby.map(function (gym, i) {
+	                  return _react2.default.createElement(_reactGoogleMaps.Marker, { key: i,
+	                    position: { lat: gym.geo[1], lng: gym.geo[0] },
+	                    icon: pointer,
+	                    onClick: _this3.showInfo.bind(_this3, { lat: gym.geo[1], lng: gym.geo[0] }, gym.name + ' <br> Costs: $' + gym.cost) });
+	                }),
+	                info
+	              )
+	            })
+	          )
 	        );
-	      } else if (this.props.state.nearby && this.props.state.nearby.length === 0) {
-	        return _react2.default.createElement(
-	          'h1',
-	          null,
-	          'There\'s nothing in that search radius, maybe try further afield'
-	        );
-	      } else {
-	        return null;
 	      }
+	      // Render 2) No gyms found
+	      else if (this.props.state.nearby && this.props.state.nearby.length === 0) {
+	          return _react2.default.createElement(
+	            'h1',
+	            { className: 'no-results' },
+	            'There\'s nothing in that search radius, maybe try further afield'
+	          );
+	        }
+	        // 3) No search made
+	        else {
+	            return null;
+	          }
 	    }
 	  }]);
 	
@@ -28097,7 +28159,7 @@
 /* 254 */
 /***/ function(module, exports) {
 
-	module.exports = "data:image/png;base64,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"
+	module.exports = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIERyYXdCZXJyeSAoaHR0cDovL3JhcGhhZWxib3N0LmZyZWUuZnIvKSAtLT4KPHN2ZyAKIAkgd2lkdGggPSAiODAuMDAwMDAwIiAKIAkgaGVpZ2h0ID0gIjgwLjAwMDAwMCIgCnhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIKeG1sbnM6Y2M9Imh0dHA6Ly93ZWIucmVzb3VyY2Uub3JnL2NjLyIKeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIgogeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgCiB4bWxuczpzb2RpcG9kaT0iaHR0cDovL2lua3NjYXBlLnNvdXJjZWZvcmdlLm5ldC9EVEQvc29kaXBvZGktMC5kdGQiCiB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIKID4KPGcgaW5rc2NhcGU6bGFiZWw9IiIgaW5rc2NhcGU6Z3JvdXBtb2RlPSJsYXllciIgaWQ9IiI+CjxwYXRoICBzdHlsZT0iZmlsbDojZWEwZDAwO2ZpbGwtb3BhY2l0eToxLjAwMDAwMDtzdHJva2U6I2VhMGQwMDtzdHJva2Utd2lkdGg6MS4wMDAwMDBweDtzdHJva2Utb3BhY2l0eToxLjAwMDAwMDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjsiIAogZD0iTSA2Ny45NTE4MzYsOS4zNTI1NzkgQyA4Mi44MzM3NjMsMjAuNTI1Nzk5IDgyLjgzMzc2MywzOC42NDEyMDEgNjcuOTUxODM2LDQ5LjgxNDQ0MiBDIDUzLjA2OTk0Niw2MC45ODc2NDAgMjguOTQxNzEwLDYwLjk4NzY0MCAxNC4wNTk4NDMsNDkuODE0NDQyIEMgLTAuODIyMDMxLDM4LjY0MTIwMSAtMC44MjIwMzEsMjAuNTI1Nzk5IDE0LjA1OTg0Myw5LjM1MjU3OSBDIDI4Ljk0MTcxMCwtMS44MjA2NTAgNTMuMDY5OTQ2LC0xLjgyMDY1MCA2Ny45NTE4MzYsOS4zNTI1NzkgIHoiICAvPgo8cGF0aCAgc3R5bGU9ImZpbGw6I2ZmZmZmZjtmaWxsLW9wYWNpdHk6MS4wMDAwMDA7c3Ryb2tlOiNlYTBkMDA7c3Ryb2tlLXdpZHRoOjEuMDAwMDAwcHg7c3Ryb2tlLW9wYWNpdHk6MS4wMDAwMDA7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7IiAKIGQ9Ik0gNjUuNDc2MTczLDEyLjgwMTY0OSBDIDc4LjY2NTQ5NywyMS45NDIxNzkgNzguNjY1NDk3LDM2Ljc2MTg4NyA2NS40NzYxNzMsNDUuOTAyNDE2IEMgNTIuMjg2ODE5LDU1LjA0Mjk0MiAzMC45MDI2NDcsNTUuMDQyOTQyIDE3LjcxMzI5NSw0NS45MDI0MTYgQyA0LjUyMzk1MywzNi43NjE4ODcgNC41MjM5NTMsMjEuOTQyMTc5IDE3LjcxMzI5NSwxMi44MDE2NDkgQyAzMC45MDI2NDcsMy42NjExNjggNTIuMjg2ODE5LDMuNjYxMTY4IDY1LjQ3NjE3MywxMi44MDE2NDkgIHoiICAvPgo8cGF0aCAgc3R5bGU9ImZpbGw6IzAwMDAwMDtmaWxsLW9wYWNpdHk6MS4wMDAwMDA7c3Ryb2tlOiNmZmZmZmY7c3Ryb2tlLXdpZHRoOjEuMDAwMDAwcHg7c3Ryb2tlLW9wYWNpdHk6MS4wMDAwMDA7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7IiAKIGQ9Ik0gMzEuNzAwMTk1LDI3LjEyNTAwMCBMIDUwLjUzODA4NiwyNy4xMjUwMDAgTCA1MC41MzgwODYsMzIuNjY3OTY5IEwgMzEuNzAwMTk1LDMyLjY2Nzk2OSBMIDMxLjcwMDE5NSwyNy4xMjUwMDAgIHoiICAvPgo8cGF0aCAgc3R5bGU9ImZpbGw6I2VhMGQwMDtmaWxsLW9wYWNpdHk6MS4wMDAwMDA7c3Ryb2tlOiNlYTBkMDA7c3Ryb2tlLXdpZHRoOjEuMDAwMDAwcHg7c3Ryb2tlLW9wYWNpdHk6MS4wMDAwMDA7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7IiAKIGQ9Ik0gMjQuMjE3NzczLDU0LjgwMzcxMSBMIDQxLjY3MDg5OCw3OC45MzI2MTcgTCA1OC45MzI2MTcsNTQuNzg0MTgwIEwgNTguOTMyNjE3LDU0Ljc4NDE4MCAiICAvPgo8cGF0aCAgc3R5bGU9ImZpbGw6IzAwMDAwMDtmaWxsLW9wYWNpdHk6MS4wMDAwMDA7c3Ryb2tlOiNmZmZmZmY7c3Ryb2tlLXdpZHRoOjEuMDAwMDAwcHg7c3Ryb2tlLW9wYWNpdHk6MS4wMDAwMDA7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7IiAKIGQ9Ik0gNTAuNDk3MDcwLDE5LjgwOTA4MiBMIDU1Ljg0NjY4MCwxOS44MDkwODIgTCA1NS44NDY2ODAsNDAuNDk0NjI5IEwgNTAuNDk3MDcwLDQwLjQ5NDYyOSBMIDUwLjQ5NzA3MCwxOS44MDkwODIgIHoiICAvPgo8cGF0aCAgc3R5bGU9ImZpbGw6IzAwMDAwMDtmaWxsLW9wYWNpdHk6MS4wMDAwMDA7c3Ryb2tlOiNmZmZmZmY7c3Ryb2tlLXdpZHRoOjEuMDAwMDAwcHg7c3Ryb2tlLW9wYWNpdHk6MS4wMDAwMDA7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7IiAKIGQ9Ik0gNTUuOTgwNDY5LDI0LjMwNTE3NiBMIDYxLjM5NTUwOCwyNC4zMDUxNzYgTCA2MS4zOTU1MDgsMzYuNDQ3NzU0IEwgNTUuOTgwNDY5LDM2LjQ0Nzc1NCBMIDU1Ljk4MDQ2OSwyNC4zMDUxNzYgIHoiICAvPgo8cGF0aCAgc3R5bGU9ImZpbGw6IzAwMDAwMDtmaWxsLW9wYWNpdHk6MS4wMDAwMDA7c3Ryb2tlOiNmZmZmZmY7c3Ryb2tlLXdpZHRoOjEuMDAwMDAwcHg7c3Ryb2tlLW9wYWNpdHk6MS4wMDAwMDA7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7IiAKIGQ9Ik0gMjAuOTcyNjU2LDIzLjkyNzI0NiBMIDI2LjM4NzY5NSwyMy45MjcyNDYgTCAyNi4zODc2OTUsMzYuMDY5ODI0IEwgMjAuOTcyNjU2LDM2LjA2OTgyNCBMIDIwLjk3MjY1NiwyMy45MjcyNDYgIHoiICAvPgo8cGF0aCAgc3R5bGU9ImZpbGw6IzAwMDAwMDtmaWxsLW9wYWNpdHk6MS4wMDAwMDA7c3Ryb2tlOiNmZmZmZmY7c3Ryb2tlLXdpZHRoOjEuMDAwMDAwcHg7c3Ryb2tlLW9wYWNpdHk6MS4wMDAwMDA7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7IiAKIGQ9Ik0gMjYuNDExMTMzLDE5LjkwMTg1NSBMIDMyLjEyNzkzMCwxOS45MDE4NTUgTCAzMi4xMjc5MzAsNDAuMTUwMzkxIEwgMjYuNDExMTMzLDQwLjE1MDM5MSBMIDI2LjQxMTEzMywxOS45MDE4NTUgIHoiICAvPgo8L2c+Cjwvc3ZnPgo="
 
 /***/ },
 /* 255 */

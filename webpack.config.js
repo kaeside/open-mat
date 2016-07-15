@@ -19,12 +19,12 @@ module.exports = {
     module: {
       loaders: [
         {
-          test: /\.scss$/,
+          test: /\.scss$/, // sass compiled by webpack
           include: /(client\/sass)/,
           loader: ExtractTextPlugin.extract('css!sass')
         },
         {
-          test: /\.(jpe?g|png|gif|svg|ico)$/i,
+          test: /\.(jpe?g|png|gif|svg|ico)$/i, // images are converted into blobs
           loaders: [
               'url?limit=8192',
               'img'

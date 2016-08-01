@@ -2,7 +2,7 @@
   "name": "open-mat",
   "version": "1.0.0",
   "description": "Open Mat",
-  "main": "server/server.js",
+  "main": "client/index.jsx",
   "engines": {
     "node": "4.1.1"
   },
@@ -12,7 +12,7 @@
     "watch": "npm run watch:html & npm run watch:jsx",
     "test": "mocha --compilers js:babel-register test/**/*.js*",
     "serve": "http-server build",
-    "start": "node ./server/server.js",
+    "start": "nf start",
     "mkdir": "mkdir -p build",
     "clean": "rm -rf build",
     "build:html": "npm run clean:html && cp client/index.html build/",

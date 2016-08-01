@@ -8,7 +8,7 @@ module.exports = {
                        .join('&')
                        .replace(/%20/g, "+");
     return (dispatch) => {
-      return fetch('http://localhost:8000/api/nearby/?' + params).then(result => {
+      return fetch('http://localhost:5000/api/nearby/?' + params).then(result => {
         if (result.status < 200 || result.status >= 300) {
           var err = new Error(result.statusText);
           err.response = result;

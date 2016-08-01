@@ -2,3 +2,4 @@ node_modules
 .sass_cache
 npm-debug.log
 secret.js
+.env

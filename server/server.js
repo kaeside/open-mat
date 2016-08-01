@@ -40,8 +40,6 @@ app.use('/api', gyms);
 app.use('/api', nearby);
 
 
-
-
 // start app
 app.listen(serverConfig.port, (error) => {
   if (!error) {

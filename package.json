@@ -2,7 +2,7 @@
   "name": "open-mat",
   "version": "1.0.0",
   "description": "Open Mat",
-  "main": "client/index.jsx",
+  "main": "server/server.js",
   "engines": {
     "node": "4.1.1"
   },
@@ -12,6 +12,7 @@
     "watch": "npm run watch:html & npm run watch:jsx",
     "test": "mocha --compilers js:babel-register test/**/*.js*",
     "serve": "http-server build",
+    "start": "node ./server/server.js",
     "mkdir": "mkdir -p build",
     "clean": "rm -rf build",
     "build:html": "npm run clean:html && cp client/index.html build/",
@@ -59,6 +60,7 @@
     "body-parser": ">=1.15.1",
     "chai": "^3.5.0",
     "express": "^4.13.4",
+    "foreman": "1.4.1",
     "google-map-react": "^0.15.1",
     "isomorphic-fetch": ">=2.2.1",
     "mocha": "^2.5.3",

@@ -1,10 +1,13 @@
 {
   "name": "open-mat",
   "version": "1.0.0",
-  "description": "",
+  "description": "Open Mat",
   "main": "client/index.jsx",
+  "engines": {
+    "node": "4.1.1"
+  },
   "scripts": {
-    "build": "npm run clean && npm run mkdir && npm run build:html && npm run build:jsx", 
+    "build": "npm run clean && npm run mkdir && npm run build:html && npm run build:jsx",
     "build:prod": "npm run clean && npm run mkdir && npm run build:html && webpack -p",
     "watch": "npm run watch:html & npm run watch:jsx",
     "test": "mocha --compilers js:babel-register test/**/*.js*",
